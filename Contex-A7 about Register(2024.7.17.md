@@ -66,7 +66,8 @@ And the Cotex-A7 has registers like
 
 
 
-![image-20240717200914563](C:\Users\wang\AppData\Roaming\Typora\typora-user-images\image-20240717200914563.png)
+![image-20240717200914563](https://github.com/user-attachments/assets/11b5fbc1-f96a-41d2-ad48-47dbf59dc1be)
+
 
 
 
@@ -118,7 +119,8 @@ Do SPSR (**Backup Program Status Registration**),**after the exception exits, we
 
 Detail can refer to the ARM Cortex-A7(arm v7)P46
 
-![image-20240717204023056](C:\Users\wang\AppData\Roaming\Typora\typora-user-images\image-20240717204023056.png)
+![image-20240717204023056](https://github.com/user-attachments/assets/177f66d2-b654-43d1-a328-82a9667f6679)
+
 
 N(bit31)：当两个补码表示的 有符号整数运算的时候， N=1 表示运算对的结果为负数， N=0
 
@@ -184,7 +186,8 @@ T(bit5)： 控制指令执行状态，表明本指令是 ARM 指令还是 Thumb 
 
 M[4:0]： 处理器模式控制位，含义如表 6.3.2.2 所示：
 
-![image-20240717205247601](C:\Users\wang\AppData\Roaming\Typora\typora-user-images\image-20240717205247601.png)
+![image-20240717204353796](https://github.com/user-attachments/assets/90ed78df-1555-4517-87db-860fab5b623c)
+
 
 
 
@@ -193,18 +196,23 @@ M[4:0]： 处理器模式控制位，含义如表 6.3.2.2 所示：
 ARM Cotex(arm v7)p41
 
 -----------------------------------------------------
+![image-20240717205247601](https://github.com/user-attachments/assets/dff34cdf-f196-40a4-9eb9-8f9d760b4730)
 
-![image-20240717204353796](C:\Users\wang\AppData\Roaming\Typora\typora-user-images\image-20240717204353796.png)
+
 
 a new Mode TrustZone Security Extensions. independent of privilege and processor mode????
 
-![image-20240717204529623](C:\Users\wang\AppData\Roaming\Typora\typora-user-images\image-20240717204529623.png)
+![image-20240717204353796](https://github.com/user-attachments/assets/fb30391a-d03e-493b-8375-533df5bf32ea)
+
+
 
 described in ARM Cotex(ARM v7)Chapter 21
 
 And Hypvervisor mode???? 
 
-![image-20240717204738276](C:\Users\wang\AppData\Roaming\Typora\typora-user-images\image-20240717204738276.png)
+![image-20240717204529623](https://github.com/user-attachments/assets/c8b00a25-144e-4495-b5a9-ba3ca886fada)
+
+
 
 -----------------------------------------------------
 
