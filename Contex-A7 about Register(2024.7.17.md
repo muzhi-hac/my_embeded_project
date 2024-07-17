@@ -213,6 +213,27 @@ And Hypvervisor mode????
 ![image-20240717204529623](https://github.com/user-attachments/assets/c8b00a25-144e-4495-b5a9-ba3ca886fada)
 
 
+and a brief introduction for Non-sucure State and secure state from chatgpt
+Non-Secure State:
+
+This is the standard operating environment for most general-purpose operating systems like Linux. Applications and the OS itself run in this state where they do not have access to secure resources or sensitive areas of the system.
+The non-secure state is designed for regular applications that do not need to handle sensitive data or perform critical security functions. It provides a larger, less restricted environment suitable for a variety of tasks.
+Secure State:
+
+The secure state is reserved for software that needs to operate with higher security privileges. This typically includes vendor-specific firmware, security-sensitive applications, or trusted execution environments.
+Software running in the secure state can access secure resources, perform cryptographic operations, and manage sensitive data securely isolated from the non-secure state.
+Often, secure state operations are more privileged because they can directly interact with hardware features designed to protect critical information and ensure system integrity.
+Importance of Secure State
+The secure state provides essential capabilities for:
+
+Protecting Sensitive Data: Encrypting and securely managing sensitive data such as cryptographic keys, user credentials, and personal information.
+Ensuring Integrity and Authenticity: Offering a more controlled environment where the integrity and authenticity of software and data can be validated.
+Preventing Unauthorized Access: Limiting the exposure of critical system components and data to prevent tampering and unauthorized access.
+Practical Use Cases
+Mobile Device Security: In smartphones, secure states are used to handle processes like payment processing, biometric data processing, and secure boot.
+IoT Security: Secure states manage device authentication and firmware updates securely in IoT devices to prevent attacks.
+Automotive Systems: Protect critical vehicle control systems and handle sensitive data like user settings and telematics.
+
 
 -----------------------------------------------------
 
