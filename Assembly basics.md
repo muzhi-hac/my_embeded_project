@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/02a43f9a-ce34-4b8b-9b3c-49d8a4b467b2)Firstly, im sorry for my poor Assembly basics.
+Firstly, im sorry for my poor Assembly basics.
 
 So i will start with basic assembly program.
 # Assembly program
@@ -61,6 +61,11 @@ like above
 is used to store and recover from exact exception status.**
 
 # memory access instructions
-ARM can't access mem directlt, like data in RAM, 
+ARM can't access mem directlt, like data in RAM. When registering, we need to use the device access command. Generally, we need to configure the value first.
+Write to the Rx(x=0~12) register, and then use the memory access instruction to write the data in Rx to the I.MX6UL register. But **why????**.  
+Here is the answer from chatgpt.
+Firstly, Most CPU architectures, including ARM which is used in I.MU6UL, do not support direct immediate-to-hardware register operations. and the operations are faster for the registers are part of the processor's core and operate at the speed of CPU.
+Secondly, Indirect addressing, the register are often memory-mapped, which means they are assigned specific addressed in the memory space.(So, if we want to caculate on the adress?or something like that?it won't work?????, this is my understanding)
+
 
 
