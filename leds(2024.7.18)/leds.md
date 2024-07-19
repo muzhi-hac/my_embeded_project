@@ -199,7 +199,33 @@ Lets write the code.
 第四步，操作LED DR，反复亮。
 
 next step we will code Makefile
+we use the cross compiler arm-linux-gnueabihf-gcc to compile the code
+to make the code can run on the PAD
+
 1.we want the .o file ()
 we need to decide the address to link(After soon we will use link file)
+so we use arm-linux-gnueabihf-gcc -c (compile the source file not linking them ) -g (produce the debug info .Remember to clean it at the file transfer)
+
+the commond is 
+``` 
+arm-linux-gnueabihf-gcc -g -c ...s -o xxx.o
+```
+2.we prefer to make the file run at the ram
+so we need to **tarlor the address**  
+for the start address is 0X8000000, and actually i do not konw the exact 
+ram info (256MB or 512MB???), so the 0X87800000 is a good choice.  
+```
+arm-linux-gnueabihf-ld -Ttext 0Xxxxxxx xxx.o -o xxx.elf
+```
+
+3.we need the %.bin file to run on the pad(In the soon, maybe we can use uart to manipulate the banzi)
+so we need to transfer the elf file to the ..bin file.
+``` arm-linux-gnueabihf-objcopy -O binary -S -g led.elf led.bin
+```
+from above, we produce the debug info, so here we need no clear it with
+**-g**, and **-S** to clear the redirect info and symbol info.
+
+4. if we want to debug file, we can disassembly the code.
+with ```arm-linux-gnueabihf-objdump -D led.elf >led.dis```
 
 
