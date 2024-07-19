@@ -1,14 +1,36 @@
 .global _start
-    _start:
-    LDR R1,=0X20C4070
+_start:
+  /* LDR R1,=0X20C0406
     LDR R0, =(3<<26)
     STR R0, [R1] @ clock
+*
+/*
+ ldr r0, =0X020C4068    /* CCGR0 */
+    ldr r1, =0XFFFFFFFF
+    str r1, [r0]
 
+    ldr r0, =0X020C406C    /* CCGR1 */
+    str r1, [r0]
+
+    ldr r0, =0X020C4070    /* CCGR2 */
+    str r1, [r0]
+
+    ldr r0, =0X020C4074    /* CCGR3 */
+    str r1, [r0]
+
+    ldr r0, =0X020C4078    /* CCGR4 */
+    str r1, [r0]
+
+    ldr r0, =0X020C407C    /* CCGR5 */
+    str r1, [r0]
+
+    ldr r0, =0X020C4080    /* CCGR6 */
+    str r1, [r0]
     LDR R2, =0X20E0068 @ IOMUX
     LDR R0, =0X5
     STR R0, [R2]
 
-
+*/
     
     /*
 bit 16 HYS 0:是否使能迟滞比较器 0
@@ -32,12 +54,12 @@ bit 0 SRE 变化率快慢 0 因为变化率快了功耗高容易g?。
 设置GPIO registers
 */
 
-    LDR R0, =0X209C0004 @ GDIR
+    LDR R0, =0X0209C004 @ GDIR
     LDR R1, =(1<<3)
     STR R1, [R0]    
 
 
-    LDR R0, =0X209C0000 @ GPIO1_DR
+    LDR R0, =0X209C000 @ GPIO1_DR
     LDR R1, =(0<<3)   
     STR R1,[R0]
 
