@@ -89,18 +89,19 @@ ALT8: UART1_RX
 Function: Configures the pin as the Receive (RX) line for UART1.
 Use: Essential for serial communication, receiving data transmitted from other devices or computers, commonly used in debugging interfaces or communication between microcontrollers.  
 对于串行通信至关重要，接收从其他设备或计算机传输的数据，常用于调试接口或微控制器之间的通信。
-
-![alt text](image-4.png)  
-![alt text](image-5.png)
 # GPIO diagram
 ![alt text](image-6.png)
 
-HYS:bit 16
+![alt text](image-4.png)  
+![alt text](image-5.png)
+
+
+**HYS:bit 16**
 enable 迟滞比较器
 迟滞比较器的作用：
 施密特触发器：当配置为输入时，如果启用迟滞比较器（Schmitt trigger），该触发器将使得输入信号具有一定的迟滞特性。这意味着输入信号需要超过一定的高阈值才能识别为高电平，而转为低电平则需要低于一个较低的阈值。这种两个阈值的设置增加了系统对噪声的抵抗能力，有助于防止由于信号边缘的微小波动而产生错误的信号边缘检测。
 
-PUS(bit15:14)： 
+**PUS(bit15:14)：** 
 配置上拉电阻与下拉电阻
 PUS 位的作用和选项：
 上下拉电阻：上下拉电阻用于确保引脚在未连接输入时具有一个确定的电平状态。上拉电阻将引脚拉至高电平（通常是供电电压），而下拉电阻则将引脚拉至低电平（通常是地线）。这些设置对于数字电路中输入引脚的稳定性至关重要。
@@ -121,3 +122,84 @@ PUS 配置选项：
 
 功能：配置22千欧的上拉电阻。
 应用场景：提供最强的上拉力，适用于环境干扰大或长距离传输信号的场景，确保引脚状态清晰无误。
+
+**PUE:13bit**
+控制引脚是否使用上下拉电阻或是状态保持器（Keeper）
+PUE 位的功能：
+上下拉电阻：当启用上下拉电阻时，引脚将连接到一个固定的上拉或下拉电阻，确保在没有驱动信号时，引脚能够保持在一个确定的高电平或低电平状态。
+状态保持器（Keeper）：状态保持器用于在引脚没有活动驱动时保持其最后的状态。这意味着，如果引脚被驱动为高电平，然后驱动去除，保持器将保持引脚在高电平；相反，如果是低电平，同样会保持低电平状态。这对于减少引脚状态变化所需的功耗特别有用。
+PUE 位的配置选项：
+0 - 使用状态保持器：
+
+功能：配置状态保持器功能，保持引脚在没有活动输入时的最后状态。
+应用场景：适用于需要最小化功耗和避免由于引脚状态不确定而引发的错误。这在传感器接口或中断引脚中尤为重要，特别是在电源可能不稳定的应用中。
+1 - 使用上下拉：
+
+功能：启用连接到引脚的上下拉电阻，确保引脚在无输入信号时具有稳定的逻辑电平。
+应用场景：适用于那些在电路设计中需要明确的信号电平保证的情况，比如在长距离信号传输或电气噪声较高的环境中。
+
+**PKE:bit 12**
+位用来使能或者禁止上下拉/状态保持器功能，
+为0 时禁止上下拉/状态保持器，为 1 时使能上下拉和状态保持器
+**ODE(bit11)**：对应图 8.1.4.2 中的 ODE，当 IO 作为输出的时候，此位用来禁止或者使能开路输出，此位为 0 的时候禁止开路输出， 当此位为 1 的时候就使能开路输出功能.  
+(开路输出（Open Drain Output）是电子电路中的一个术语，它指的是一种输出方式，其中输出端不直接驱动到高电平状态，而是依赖外部的上拉电阻将电压拉到高电平。在没有外部上拉电阻的情况下，输出端仅能拉低至地（GND），而不能自行推至高电平。)  
+
+![alt text](image-7.png)
+
+![alt text](image-8.png)
+
+# How GPIO works
+![alt text](image-9.png)
+Key Components
+GPIO Block
+
+This block manages the basic settings and operations of the GPIO pins.
+Components:
+**GPIO_DR** (Data Register): Manages output levels on the GPIO pins.  
+if the GPIO_GDIR is configured as an output, its value is the GPIO outputvalue, else GDIR configured as an input, its value is input value.  
+
+**GPIO_GDIR** (Direction Register): Configures pins as either inputs or outputs. v 
+input :0; output :1.  
+
+**GPIO_PSR** (Pad Status Register): Reads the current status of GPIO pins.  
+![alt text](image-12.png)
+
+**GPIO_ICR1 and GPIO_ICR2** (Interrupt Configuration Registers): Configure interrupt generation conditions.
+![alt text](image-13.png)
+
+
+**GPIO_EDGE_SEL (Edge Select)**: Determines what type of edge (rising, falling) triggers an interrupt.can override ICR1 and ICR2
+
+**GPIO_IMR**(Interrupt Mask Register): Enables or disables interrupts.  
+
+**GPIO_ISR** (Interrupt Status Register): Indicates which GPIO pin has triggered an interrupt.  
+When interrupt happens, ISR is set 1. When interrupts end, we need to clear it. 
+IOMUX
+~~FickenFickenFickenFickenFickenFicken~~
+
+The IOMUX connects the configured GPIO settings.
+The Pad configures the electrical characteristics of the pads.
+
+![alt text](image-10.png)
+![alt text](image-11.png)
+
+Last，we need to enable clock at first step.
+My understanding: we need enable clock to make program works in order.
+And the clock register is CCM_CCGR0~6, which can be found at I.MX6ULL 
+p669.
+
+we need to find the GPIO_io03_clock.
+we find it in CCM_CCGR2.
+![alt text](image-14.png)
+Lets write the code.  
+第一步，使能时钟。
+第二步，设置GPIO1 IOMUX 和pad
+和GPIO的寄存器属性。 
+第三步，跳转到main
+第四步，操作LED DR，反复亮。
+
+next step we will code Makefile
+1.we want the .o file ()
+we need to decide the address to link(After soon we will use link file)
+
+
