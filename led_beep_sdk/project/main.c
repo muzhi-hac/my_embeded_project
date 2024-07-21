@@ -15,7 +15,7 @@ int main(void){
 
 
     led_switch(LED0,ON);
-     beep_switch(BEEP0,OFF);
+     beep_switch(BEEP0,ON);
     delay(500);
     
 }

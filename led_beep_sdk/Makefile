@@ -44,17 +44,17 @@ VPATH			:= $(SRCDIRS)
 .PHONY: clean
 
 
-show-vars:
-	@echo "INCDIRS: $(INCDIRS)"
-	@echo "SRCDIRS: $(SRCDIRS)"
-	@echo "INCLUDE: $(INCLUDE)"
-	@echo "SFILESDIR: $(SFILESDIR)"
-	@echo "CFILESDIR: $(CFILESDIR)"
-	@echo "SFILES: $(SFILES)"
-	@echo "CFILES: $(CFILES)"
-	@echo "SOBJS: $(SOBJS)"
-	@echo "COBJS: $(COBJS)"
-	@echo "OBJS: $(OBJS)"
+# show-vars:
+# 	@echo "INCDIRS: $(INCDIRS)"
+# 	@echo "SRCDIRS: $(SRCDIRS)"
+# 	@echo "INCLUDE: $(INCLUDE)"
+# 	@echo "SFILESDIR: $(SFILESDIR)"
+# 	@echo "CFILESDIR: $(CFILESDIR)"
+# 	@echo "SFILES: $(SFILES)"
+# 	@echo "CFILES: $(CFILES)"
+# 	@echo "SOBJS: $(SOBJS)"
+# 	@echo "COBJS: $(COBJS)"
+# 	@echo "OBJS: $(OBJS)"
 
 #OBJS =obj/xxx.o
 $(TARGET).bin:$(OBJS)

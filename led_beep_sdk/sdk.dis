@@ -1,0 +1,237 @@
+
+sdk.elf：     文件格式 elf32-littlearm
+
+
+Disassembly of section .text:
+
+87800000 <_start>:
+87800000:	e10f0000 	mrs	r0, CPSR
+87800004:	e3c0001f 	bic	r0, r0, #31
+87800008:	e3800013 	orr	r0, r0, #19
+8780000c:	e129f000 	msr	CPSR_fc, r0
+87800010:	e51fd000 	ldr	sp, [pc, #-0]	@ 87800018 <_start+0x18>
+87800014:	ea00005f 	b	87800198 <__main_from_arm>
+87800018:	80200000 	eorhi	r0, r0, r0
+8780001c:	00001e41 	andeq	r1, r0, r1, asr #28
+87800020:	61656100 	cmnvs	r5, r0, lsl #2
+87800024:	01006962 	tsteq	r0, r2, ror #18
+87800028:	00000014 	andeq	r0, r0, r4, lsl r0
+8780002c:	412d3705 			@ <UNDEFINED> instruction: 0x412d3705
+87800030:	070a0600 	streq	r0, [sl, -r0, lsl #12]
+87800034:	09010841 	stmdbeq	r1, {r0, r6, fp}
+87800038:	00040a02 	andeq	r0, r4, r2, lsl #20
+
+8780003c <clock_init>:
+8780003c:	f44f 4380 	mov.w	r3, #16384	@ 0x4000
+87800040:	f2c0 230c 	movt	r3, #524	@ 0x20c
+87800044:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+87800048:	669a      	str	r2, [r3, #104]	@ 0x68
+8780004a:	66da      	str	r2, [r3, #108]	@ 0x6c
+8780004c:	671a      	str	r2, [r3, #112]	@ 0x70
+8780004e:	675a      	str	r2, [r3, #116]	@ 0x74
+87800050:	679a      	str	r2, [r3, #120]	@ 0x78
+87800052:	67da      	str	r2, [r3, #124]	@ 0x7c
+87800054:	f8c3 2080 	str.w	r2, [r3, #128]	@ 0x80
+87800058:	4770      	bx	lr
+8780005a:	bf00      	nop
+
+8780005c <led_switch>:
+8780005c:	b950      	cbnz	r0, 87800074 <led_switch+0x18>
+8780005e:	2901      	cmp	r1, #1
+87800060:	d009      	beq.n	87800076 <led_switch+0x1a>
+87800062:	b939      	cbnz	r1, 87800074 <led_switch+0x18>
+87800064:	f44f 4340 	mov.w	r3, #49152	@ 0xc000
+87800068:	f2c0 2309 	movt	r3, #521	@ 0x209
+8780006c:	681a      	ldr	r2, [r3, #0]
+8780006e:	f042 0208 	orr.w	r2, r2, #8
+87800072:	601a      	str	r2, [r3, #0]
+87800074:	4770      	bx	lr
+87800076:	f44f 4340 	mov.w	r3, #49152	@ 0xc000
+8780007a:	f2c0 2309 	movt	r3, #521	@ 0x209
+8780007e:	681a      	ldr	r2, [r3, #0]
+87800080:	f022 0208 	bic.w	r2, r2, #8
+87800084:	601a      	str	r2, [r3, #0]
+87800086:	4770      	bx	lr
+
+87800088 <led_init>:
+87800088:	2200      	movs	r2, #0
+8780008a:	f2c0 220e 	movt	r2, #526	@ 0x20e
+8780008e:	f44f 4340 	mov.w	r3, #49152	@ 0xc000
+87800092:	f2c0 2309 	movt	r3, #521	@ 0x209
+87800096:	2005      	movs	r0, #5
+87800098:	f241 01b0 	movw	r1, #4272	@ 0x10b0
+8780009c:	6690      	str	r0, [r2, #104]	@ 0x68
+8780009e:	f8c2 12f4 	str.w	r1, [r2, #756]	@ 0x2f4
+878000a2:	685a      	ldr	r2, [r3, #4]
+878000a4:	f042 0208 	orr.w	r2, r2, #8
+878000a8:	605a      	str	r2, [r3, #4]
+878000aa:	681a      	ldr	r2, [r3, #0]
+878000ac:	f022 0208 	bic.w	r2, r2, #8
+878000b0:	601a      	str	r2, [r3, #0]
+878000b2:	4770      	bx	lr
+
+878000b4 <led_on>:
+878000b4:	f44f 4340 	mov.w	r3, #49152	@ 0xc000
+878000b8:	f2c0 2309 	movt	r3, #521	@ 0x209
+878000bc:	681a      	ldr	r2, [r3, #0]
+878000be:	f022 0208 	bic.w	r2, r2, #8
+878000c2:	601a      	str	r2, [r3, #0]
+878000c4:	4770      	bx	lr
+878000c6:	bf00      	nop
+
+878000c8 <led_off>:
+878000c8:	f44f 4340 	mov.w	r3, #49152	@ 0xc000
+878000cc:	f2c0 2309 	movt	r3, #521	@ 0x209
+878000d0:	681a      	ldr	r2, [r3, #0]
+878000d2:	f042 0208 	orr.w	r2, r2, #8
+878000d6:	601a      	str	r2, [r3, #0]
+878000d8:	4770      	bx	lr
+878000da:	bf00      	nop
+
+878000dc <delay_short>:
+878000dc:	b082      	sub	sp, #8
+878000de:	9001      	str	r0, [sp, #4]
+878000e0:	9b01      	ldr	r3, [sp, #4]
+878000e2:	1e5a      	subs	r2, r3, #1
+878000e4:	9201      	str	r2, [sp, #4]
+878000e6:	2b00      	cmp	r3, #0
+878000e8:	d1fa      	bne.n	878000e0 <delay_short+0x4>
+878000ea:	b002      	add	sp, #8
+878000ec:	4770      	bx	lr
+878000ee:	bf00      	nop
+
+878000f0 <delay>:
+878000f0:	b082      	sub	sp, #8
+878000f2:	9001      	str	r0, [sp, #4]
+878000f4:	9b01      	ldr	r3, [sp, #4]
+878000f6:	1e5a      	subs	r2, r3, #1
+878000f8:	9201      	str	r2, [sp, #4]
+878000fa:	b153      	cbz	r3, 87800112 <delay+0x22>
+878000fc:	f240 73ff 	movw	r3, #2047	@ 0x7ff
+87800100:	461a      	mov	r2, r3
+87800102:	3b01      	subs	r3, #1
+87800104:	2a00      	cmp	r2, #0
+87800106:	d1fb      	bne.n	87800100 <delay+0x10>
+87800108:	9b01      	ldr	r3, [sp, #4]
+8780010a:	1e5a      	subs	r2, r3, #1
+8780010c:	9201      	str	r2, [sp, #4]
+8780010e:	2b00      	cmp	r3, #0
+87800110:	d1f4      	bne.n	878000fc <delay+0xc>
+87800112:	b002      	add	sp, #8
+87800114:	4770      	bx	lr
+87800116:	bf00      	nop
+
+87800118 <beep_init>:
+87800118:	2200      	movs	r2, #0
+8780011a:	f2c0 2229 	movt	r2, #553	@ 0x229
+8780011e:	f44f 4340 	mov.w	r3, #49152	@ 0xc000
+87800122:	f2c0 230a 	movt	r3, #522	@ 0x20a
+87800126:	2005      	movs	r0, #5
+87800128:	f241 01b0 	movw	r1, #4272	@ 0x10b0
+8780012c:	60d0      	str	r0, [r2, #12]
+8780012e:	6511      	str	r1, [r2, #80]	@ 0x50
+87800130:	685a      	ldr	r2, [r3, #4]
+87800132:	f042 0202 	orr.w	r2, r2, #2
+87800136:	605a      	str	r2, [r3, #4]
+87800138:	681a      	ldr	r2, [r3, #0]
+8780013a:	f022 0202 	bic.w	r2, r2, #2
+8780013e:	601a      	str	r2, [r3, #0]
+87800140:	4770      	bx	lr
+87800142:	bf00      	nop
+
+87800144 <beep_switch>:
+87800144:	b950      	cbnz	r0, 8780015c <beep_switch+0x18>
+87800146:	2901      	cmp	r1, #1
+87800148:	d009      	beq.n	8780015e <beep_switch+0x1a>
+8780014a:	b939      	cbnz	r1, 8780015c <beep_switch+0x18>
+8780014c:	f44f 4340 	mov.w	r3, #49152	@ 0xc000
+87800150:	f2c0 230a 	movt	r3, #522	@ 0x20a
+87800154:	681a      	ldr	r2, [r3, #0]
+87800156:	f042 0202 	orr.w	r2, r2, #2
+8780015a:	601a      	str	r2, [r3, #0]
+8780015c:	4770      	bx	lr
+8780015e:	f44f 4340 	mov.w	r3, #49152	@ 0xc000
+87800162:	f2c0 230a 	movt	r3, #522	@ 0x20a
+87800166:	681a      	ldr	r2, [r3, #0]
+87800168:	f022 0202 	bic.w	r2, r2, #2
+8780016c:	601a      	str	r2, [r3, #0]
+8780016e:	4770      	bx	lr
+
+87800170 <beep_on>:
+87800170:	f44f 4340 	mov.w	r3, #49152	@ 0xc000
+87800174:	f2c0 230a 	movt	r3, #522	@ 0x20a
+87800178:	681a      	ldr	r2, [r3, #0]
+8780017a:	f022 0202 	bic.w	r2, r2, #2
+8780017e:	601a      	str	r2, [r3, #0]
+87800180:	4770      	bx	lr
+87800182:	bf00      	nop
+
+87800184 <beep_off>:
+87800184:	f44f 4340 	mov.w	r3, #49152	@ 0xc000
+87800188:	f2c0 230a 	movt	r3, #522	@ 0x20a
+8780018c:	681a      	ldr	r2, [r3, #0]
+8780018e:	f042 0202 	orr.w	r2, r2, #2
+87800192:	601a      	str	r2, [r3, #0]
+87800194:	4770      	bx	lr
+87800196:	bf00      	nop
+
+87800198 <__main_from_arm>:
+87800198:	e51ff004 	ldr	pc, [pc, #-4]	@ 8780019c <__main_from_arm+0x4>
+8780019c:	878001a1 	strhi	r0, [r0, r1, lsr #3]
+
+Disassembly of section .text.startup:
+
+878001a0 <main>:
+878001a0:	b508      	push	{r3, lr}
+878001a2:	f7ff ff4b 	bl	8780003c <clock_init>
+878001a6:	f7ff ff6f 	bl	87800088 <led_init>
+878001aa:	f7ff ffb5 	bl	87800118 <beep_init>
+878001ae:	2100      	movs	r1, #0
+878001b0:	4608      	mov	r0, r1
+878001b2:	f7ff ff53 	bl	8780005c <led_switch>
+878001b6:	2100      	movs	r1, #0
+878001b8:	4608      	mov	r0, r1
+878001ba:	f7ff ffc3 	bl	87800144 <beep_switch>
+878001be:	f44f 70fa 	mov.w	r0, #500	@ 0x1f4
+878001c2:	f7ff ff95 	bl	878000f0 <delay>
+878001c6:	2101      	movs	r1, #1
+878001c8:	2000      	movs	r0, #0
+878001ca:	f7ff ff47 	bl	8780005c <led_switch>
+878001ce:	2101      	movs	r1, #1
+878001d0:	2000      	movs	r0, #0
+878001d2:	f7ff ffb7 	bl	87800144 <beep_switch>
+878001d6:	f44f 70fa 	mov.w	r0, #500	@ 0x1f4
+878001da:	f7ff ff89 	bl	878000f0 <delay>
+878001de:	e7e6      	b.n	878001ae <main+0xe>
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	3a434347 	bcc	10d0d24 <_start-0x8672f2dc>
+   4:	62552820 	subsvs	r2, r5, #32, 16	@ 0x200000
+   8:	75746e75 	ldrbvc	r6, [r4, #-3701]!	@ 0xfffff18b
+   c:	2e333120 	rsfcssp	f3, f3, f0
+  10:	2d302e32 	ldccs	14, cr2, [r0, #-200]!	@ 0xffffff38
+  14:	62753332 	rsbsvs	r3, r5, #-939524096	@ 0xc8000000
+  18:	75746e75 	ldrbvc	r6, [r4, #-3701]!	@ 0xfffff18b
+  1c:	31202934 			@ <UNDEFINED> instruction: 0x31202934
+  20:	2e322e33 	mrccs	14, 1, r2, cr2, cr3, {1}
+  24:	Address 0x24 is out of bounds.
+
+
+Disassembly of section .ARM.attributes:
+
+00000000 <.ARM.attributes>:
+   0:	00002e41 	andeq	r2, r0, r1, asr #28
+   4:	61656100 	cmnvs	r5, r0, lsl #2
+   8:	01006962 	tsteq	r0, r2, ror #18
+   c:	00000024 	andeq	r0, r0, r4, lsr #32
+  10:	412d3705 			@ <UNDEFINED> instruction: 0x412d3705
+  14:	070a0600 	streq	r0, [sl, -r0, lsl #12]
+  18:	09010841 	stmdbeq	r1, {r0, r6, fp}
+  1c:	12040a02 	andne	r0, r4, #8192	@ 0x2000
+  20:	15011404 	strne	r1, [r1, #-1028]	@ 0xfffffbfc
+  24:	18031701 	stmdane	r3, {r0, r8, r9, sl, ip}
+  28:	1c021a01 			@ <UNDEFINED> instruction: 0x1c021a01
+  2c:	Address 0x2c is out of bounds.
+
