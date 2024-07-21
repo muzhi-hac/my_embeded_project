@@ -23,8 +23,3 @@ void led_off(){
     GPIO1->DR|=(1<<3);
 }
 
-void delay(int n){
-    while (n--){
-
-    }
-}

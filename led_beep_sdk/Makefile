@@ -28,8 +28,8 @@ CFILESDIR		:=$(foreach dir, $(SRCDIRS),$(wildcard $(dir)/%.c))
 SFILES 			:=$(notdir $(SFILESDIR))
 CFILES			:=$(notdir $(CFILESDIR))
 #SFILES =xxx.S
-SOBJS			:=$(patsubst %,obj/$(SFILES),"SFILES:%.S=%.o")
-COBJS			:=$(patsubst %,obj/$(CFILES),"CFILES:%.c=%.o")
+SOBJS			:=$(patsubst %,obj/$(SFILES),$(SFILES:.S=.o))
+COBJS			:=$(patsubst %,obj/$(CFILES),$(CFILES:.c=.o))
 #SOBJS =obj/xxx.o
 OBJS			:=$(SOBJS)$(COBJS)
 #OBJS =obj/xxx.o
@@ -61,3 +61,4 @@ $(OBJS):obj/%.o : %.c
 
 clean:
 #	rm -rf *.o led.bin led.elf led.dis
+	rm -rf  $(TARGET).bin $(TARGET).elf $(TARGET).dis $(OBJS)
