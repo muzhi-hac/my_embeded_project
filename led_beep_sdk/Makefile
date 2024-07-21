@@ -1,11 +1,11 @@
 
-TARGET			:=sdk
+TARGET			?=sdk
 
 # source 			:=%.c
 
 # obj				:=led
 
-TOOL			:=arm-linux-gnueabihf
+TOOL			?=arm-linux-gnueabihf
 
 GCC 			:=$(TOOL)-gcc
 LD				:=$(TOOL)-ld
@@ -15,33 +15,55 @@ OBJDUMP			:=$(TOOL)-objdump
 INCDIRS 		:=imx6ul \
 				bsp/clock \
 				bsp/led	\
+				bsp/delay
 
 SRCDIRS			:=project \
 				bsp/clock \
-				bsp/led
-INCLUDE 		:=$(patsubst %,-I %,$(INCDIRS))
+				bsp/led \
+				bsp/delay
 
-SFILESDIR		:=$(foreach dir, $(SRCDIRS),$(wildcard $(dir)/%.s))
-CFILESDIR		:=$(foreach dir, $(SRCDIRS),$(wildcard $(dir)/%.c))
+
+VPATH			:= $(SRCDIRS)
+INCLUDE 		:=$(patsubst %, -I %, $(INCDIRS))
+
+SFILESDIR		:=$(foreach dir, $(SRCDIRS) , $(wildcard $(dir)/*.S))
+CFILESDIR		:=$(foreach dir, $(SRCDIRS) , $(wildcard $(dir)/*.c))
 # SFILEDIR =bsp/clock/xxx.S
 
 SFILES 			:=$(notdir $(SFILESDIR))
 CFILES			:=$(notdir $(CFILESDIR))
 #SFILES =xxx.S
-SOBJS			:=$(patsubst %,obj/$(SFILES),$(SFILES:.S=.o))
-COBJS			:=$(patsubst %,obj/$(CFILES),$(CFILES:.c=.o))
+SOBJS			:=$(patsubst %, obj/% ,$(SFILES:.S=.o))
+COBJS			:=$(patsubst %, obj/% ,$(CFILES:.c=.o))
 #SOBJS =obj/xxx.o
-OBJS			:=$(SOBJS)$(COBJS)
+OBJS			:=$(SOBJS) $(COBJS)
+
+VPATH			:= $(SRCDIRS)
+.PHONY: clean
+
+
+show-vars:
+	@echo "INCDIRS: $(INCDIRS)"
+	@echo "SRCDIRS: $(SRCDIRS)"
+	@echo "INCLUDE: $(INCLUDE)"
+	@echo "SFILESDIR: $(SFILESDIR)"
+	@echo "CFILESDIR: $(CFILESDIR)"
+	@echo "SFILES: $(SFILES)"
+	@echo "CFILES: $(CFILES)"
+	@echo "SOBJS: $(SOBJS)"
+	@echo "COBJS: $(COBJS)"
+	@echo "OBJS: $(OBJS)"
+
 #OBJS =obj/xxx.o
 $(TARGET).bin:$(OBJS)
-	$(LD) -T imx6ul.lds -o $(TARGET).elf $^
+	$(LD) -Timx6ul.lds -o $(TARGET).elf $^
 	$(OBJCOPY) -O binary -S $(TARGET).elf $@
 	$(OBJDUMP) -D -m arm $(TARGET).elf >$(TARGET).dis
 
-$(OBJS):obj/%.o : %.S
+$(SOBJS) : obj/%.o :  %.S
 	$(GCC) -c -Wall -nostdlib -O2 $(INCLUDE) -o $@ $<
 
-$(OBJS):obj/%.o : %.c
+$(COBJS): obj/%.o :  %.c
 	$(GCC) -c -Wall -nostdlib -O2 $(INCLUDE) -o $@ $<
 #-Wall：打开几乎所有的编译器警告，有助于发现代码中的潜在问题。
 # -nostdlib：在编译过程中不使用标准库。这通常在编写操作系统或嵌入式系统的底层代码时使用。
