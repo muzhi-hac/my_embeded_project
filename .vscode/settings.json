@@ -1,6 +1,8 @@
 {
     "svn.ignoreMissingSvnWarning": true,
     "files.associations": {
-        "bsp_clock.h": "c"
+        "bsp_clock.h": "c",
+        "imx6ul.h": "c",
+        "cc.h": "c"
     }
 }

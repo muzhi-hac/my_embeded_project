@@ -15,12 +15,14 @@ OBJDUMP			:=$(TOOL)-objdump
 INCDIRS 		:=imx6ul \
 				bsp/clock \
 				bsp/led	\
-				bsp/delay
+				bsp/delay \
+				bsp/beep
 
 SRCDIRS			:=project \
 				bsp/clock \
 				bsp/led \
-				bsp/delay
+				bsp/delay \
+				bsp/beep
 
 
 VPATH			:= $(SRCDIRS)
