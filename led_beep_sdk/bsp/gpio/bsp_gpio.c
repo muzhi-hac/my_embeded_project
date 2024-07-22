@@ -9,7 +9,7 @@ void gpio_init(GPIO_Type *base,int pin,_gpio_pin_config *config)
     }else if (config->direction==0U)
     {
     base->GDIR &= ~(1<<pin);
-    gpio_pin_wirte(base,pin,config->default_logic);
+    gpio_pin_wirte(base, pin, config->default_logic);
     /*这里相当于原来的默认输出，因为我们不知道默认输出是什么
     比如led 默认输出0时为开，
     beep 默认输出 0 为开

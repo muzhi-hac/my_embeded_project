@@ -15,11 +15,18 @@ int main(void){
     unsigned char LED_STATE =OFF;
     unsigned char BEEP_STATE =OFF;
     while(1){
-    if (key_value_get()==BUTTON_PRESS_VALUE)
+    if (key_value_get())
     {
-        LED_STATE!=LED_STATE;
-        led_switch(LED0,LED_STATE);
-        beep_switch(BEEP0,LED_STATE);
+        switch (key_value_get())
+        {
+            case BUTTON_PRESS_VALUE :
+            led_switch(LED0,LED_STATE);
+            beep_switch(BEEP0,LED_STATE);
+            LED_STATE =!LED_STATE;
+            break;
+        }
+
+       
     }
    
 

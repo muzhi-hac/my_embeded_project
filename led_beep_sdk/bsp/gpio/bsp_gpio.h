@@ -18,7 +18,7 @@ typedef struct _gpio_pin_config
 
 void gpio_init(GPIO_Type *base,int pin,_gpio_pin_config *config);
 int gpio_pin_read(GPIO_Type *base,int pin);
-void gpio_pin_wirte(GPIO_Type *base,int pin);
+void gpio_pin_wirte(GPIO_Type *base,int pin,int value);
 
 
 
