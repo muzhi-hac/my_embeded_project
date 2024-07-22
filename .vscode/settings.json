@@ -3,6 +3,7 @@
     "files.associations": {
         "bsp_clock.h": "c",
         "imx6ul.h": "c",
-        "cc.h": "c"
+        "cc.h": "c",
+        "bsp_gpio.h": "c"
     }
 }

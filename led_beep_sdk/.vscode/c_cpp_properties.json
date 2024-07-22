@@ -8,6 +8,8 @@
                 "${workspaceFolder}/bsp/delay",
                 "${workspaceFolder}/bsp/led",
                 "${workspaceFolder}/bsp/beep",
+                "${workspaceFolder}/bsp/gpio",
+                "${workspaceFolder}/bsp/key",
                 "${workspaceFolder}/imx6ul",
                 "${workspaceFolder}/project"
                 
