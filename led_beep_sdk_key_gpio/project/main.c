@@ -17,6 +17,7 @@ int main(void){
     while(1){
     if (key_value_get())
     {
+        delay(100);
         switch (key_value_get())
         {
             case BUTTON_PRESS_VALUE :
