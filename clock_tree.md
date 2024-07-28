@@ -104,6 +104,17 @@ PFDO_STABLE - Phase Fractional Divider Output Stable
 
 ![alt text](image-53.png)
 
+# Other peripheral clock sources
+The three clock control most peripherals
+![alt text](image-54.png)
+![alt text](image-55.png)
+## AMH_CLOCK_ROOT 
+## PERCLK_CLK_ROOT
+
+**control epit, I2C and so on**
+
+## IPG_CLK_ROOT
+**control WDAG and ADC(数字模拟转换器)(digital to analog converter)
 
 
 
