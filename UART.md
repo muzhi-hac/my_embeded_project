@@ -185,7 +185,7 @@ TXEN(bit 2):enable transmit
 RXEN(bit 1):enabel receive
 SRST(bit 0):software reset
 
-## UART3_UCR
+## UARTx_UCR3
 ![alt text](image-27.png)
 Bit 0 (ACIEN):
 
