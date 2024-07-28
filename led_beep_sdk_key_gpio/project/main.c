@@ -6,6 +6,7 @@
 #include "bsp_key.h"
 
 int main(void){
+    imx6ul_clock_init();
     clock_init();
     led_init();
     beep_init();

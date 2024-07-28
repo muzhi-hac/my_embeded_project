@@ -17,7 +17,7 @@ void imx6ul_clock_init(void)
 
     CCM->CCSR |= (1<<2);/*pll1_sw_clk_sel*/
     }
-    CCM_ANALOG->PLL_ARM  |=((1<<13)|(49<<0));
+    CCM_ANALOG->PLL_ARM  |=((1<<13)|(88<<0));
     
 
     CCM->CCSR &= ~(1<<2);/*pll1_sw_clk_sel*/
