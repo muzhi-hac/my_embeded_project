@@ -1,0 +1,19 @@
+#include "bsp_delay.h"
+void delay_short(volatile unsigned int n)
+{
+	while(n--){}
+}
+
+/*
+ * @description	: 延时函数,在396Mhz的主频下
+ * 			  	  延时时间大约为1ms
+ * @param - n	: 要延时的ms数
+ * @return 		: 无
+ */
+void delay(volatile unsigned int n)
+{
+	while(n--)
+	{
+		delay_short(0x7ff);
+	}
+}

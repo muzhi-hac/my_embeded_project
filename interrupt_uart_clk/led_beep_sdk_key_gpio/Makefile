@@ -18,7 +18,8 @@ INCDIRS 		:=imx6ul \
 				bsp/delay \
 				bsp/beep \
 				bsp/gpio \
-				bsp/key
+				bsp/key \
+				bsp/int
 
 SRCDIRS			:=project \
 				bsp/clock \
@@ -26,7 +27,8 @@ SRCDIRS			:=project \
 				bsp/delay \
 				bsp/beep\
 				bsp/gpio \
-				bsp/key
+				bsp/key \
+				bsp/int
 
 
 VPATH			:= $(SRCDIRS)

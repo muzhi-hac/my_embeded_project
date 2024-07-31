@@ -5,7 +5,7 @@ void key_init()
     IOMUXC_SetPinMux(IOMUXC_UART1_CTS_B_GPIO1_IO18 ,0);
     IOMUXC_SetPinConfig(IOMUXC_UART1_CTS_B_GPIO1_IO18 ,0xF080);
     
-    _gpio_pin_config key_config;
+    gpio_pin_config key_config;
     key_config.direction=0U; 
     
     gpio_init(GPIO1,18,&key_config);

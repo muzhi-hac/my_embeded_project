@@ -1,5 +1,5 @@
 #include "bsp_gpio.h"
-void gpio_init(GPIO_Type *base,int pin,_gpio_pin_config *config)
+void gpio_init(GPIO_Type *base,int pin,gpio_pin_config *config)
 {
 
     if (config->direction==1U)
@@ -34,4 +34,16 @@ void gpio_pin_wirte(GPIO_Type *base,int pin,int value)
     (base->DR) |= (1<<pin);
     }
 
+}
+void gpio_interrupt_enable(GPIO_Type *base,int pin)
+{
+    base->IMR &= ~(1<<pin);
+}
+void gpio_interrupt_disable(GPIO_Type *base,int pin)
+{
+    base->IMR |= (1<<pin);
+}
+void gpio_clear_interrup_flags(GPIO_Type *base,int pin)
+{
+    base->ISR |= (1<<pin);
 }

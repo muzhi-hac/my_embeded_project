@@ -4,8 +4,9 @@
 #include "bsp_beep.h"
 #include "bsp_gpio.h"
 #include "bsp_key.h"
-
+#include "bsp_int.h"
 int main(void){
+    int_init();
     imx6ul_clock_init();
     clock_init();
     led_init();

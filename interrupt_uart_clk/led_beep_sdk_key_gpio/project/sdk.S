@@ -5,6 +5,7 @@ _start :
     ldr pc, =SVC_Handler
     ldr pc, =PreAbort_Handler
     ldr pc, =DataAbort_Handler
+    ldr	pc, =NotUsed_Handler
     ldr pc, =IRQ_Handler
     ldr pc, =FIQ_Handler
 
@@ -18,14 +19,14 @@ Reset_Handler:
     bic     r0,  r0, #(0x1 << 11)     /* 清除C1寄存器的bit11(Z位)，关闭分支预测					*/
     bic     r0,  r0, #0x1             /* 清除C1寄存器的bit0(M位)，关闭MMU				       	*/
     mcr p15,0,r0,c1,c0,0
-    
+#if 0
     ldr r0 ,=0x87000000
     dsb
     isb
     mrc p15,0,r0,c12,c0,0 /* config the VBAR*/ 
     dsb
     isb
-
+#endif
     /*SYS_MODE*/
     mrs r0, cpsr
     bic r0, r0,#0x1f
@@ -46,27 +47,33 @@ Reset_Handler:
     orr r0, r0, #0x13
     msr cpsr,r0
     ldr sp, =0x80200000
-    
+#if 0
+	/* 使能IRQ中断 */
+	mrs r0, cpsr		/* 读取cpsr寄存器值到r0中 			*/
+	bic r0, r0, #0x80	/* 将r0寄存器中bit7清零，也就是CPSR中的I位清零，表示允许IRQ中断 */
+	msr cpsr, r0		/* 将r0重新写入到cpsr中 			*/
+#endif 
     cpsie i
     b main
-   
 
-
-Undefined_Handler:
-	ldr r0, =Undefined_Handler
+Undef_Handler:
+	ldr r0, =Undef_Handler
 	bx r0
 
 SVC_Handler:
 	ldr r0, =SVC_Handler
 	bx r0
 
-PrefAbort_Handler:
-	ldr r0, =PrefAbort_Handler	
+PreAbort_Handler:
+	ldr r0, =PreAbort_Handler	
 	bx r0
 
 DataAbort_Handler:
 	ldr r0, =DataAbort_Handler
 	bx r0
+NotUsed_Handler:
+    ldr r0,=NotUsed_Handler
+    bx r0
 
 IRQ_Handler:
     cpsid i
@@ -80,14 +87,14 @@ IRQ_Handler:
    mcr p15,4,r1,c15,c0 
    /*get GICC_CBAR register value*/
 
-   add r1, r1,0x2000
-   ldr r0,[r1,0xc]
+   add r1, r1,#0x2000
+   ldr r0,[r1,#0xc]
    /*get GICC_IAR which controls ID*/
 
-    psuh {r0,r1}
+    push {r0,r1}
 
     cps 0x13
-    psuh {lr}
+    push {lr}
     ldr r2,=system_irq_handler
     blx r2
 
@@ -111,14 +118,13 @@ IRQ_Handler:
     
 
 
-    ldr r0, =IRQ_Handler
-    bx r0
+
 
 FIQ_Handler:
     ldr r0, =FIQ_Handler
     bx r0
 
-
+/*
     mrs r0, cpsr
     bic r0, r0,#0x1f
     orr r0, r0, #0x13
@@ -127,3 +133,4 @@ FIQ_Handler:
     ldr sp, =0x80200000
     
     b main 
+*/

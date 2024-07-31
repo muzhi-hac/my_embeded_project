@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "my_embeded_project",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"bsp_clock.h": "c",
+			"bsp_delay.h": "c",
+			"bsp_led.h": "c"
+		}
+	}
+}

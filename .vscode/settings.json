@@ -5,6 +5,9 @@
         "imx6ul.h": "c",
         "cc.h": "c",
         "bsp_gpio.h": "c",
-        "bsp_beep.h": "c"
+        "bsp_beep.h": "c",
+        "bsp_int.h": "c",
+        "core_ca7.h": "c",
+        "bsp_exit.h": "c"
     }
 }
