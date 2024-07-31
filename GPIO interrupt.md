@@ -12,6 +12,77 @@ how to configure the CPSR
 The default vector base address is 0x00000000, but we start at the 0x80000000, and most ARM cores permit to move to 0xffff0000, The offset set is through CP15 register.
 CP15 寄存器：用于设置向量基址。在支持安全扩展的处理器核心中，可以分别为安全和非安全状态设置向量基址。这增加了灵活性和安全性，允许系统根据当前执行状态使用不同的异常处理代码。  
 ![alt text](image-11.png)
+# Reset
+In this section, we need to reset interrupt
+The SCTRL(System control register) control the 
+So we need to get the value in SCTRL and set value to it.It is controlled by the C1 coprocessor
+So we went to C1 to get the value of the SCTRL.
+Control icache intruction cache and mmu and so on
+
+Contex-A7 p105
+**SCTLR(system conrtol register)**
+
+And Meanwile the VBAR(Vector Base Address register) control the offset of interrupt table.
+It is controlled by the C12 
+
+we can use 
+```MCR{cond} p15, <opc1>, <Rt>, <CRn>, <CRm>, <opc2>``` to control the coprocessor
+GICC_IAR() 
+
+
+
+
+
+CP15 ARM Architecture P1469
+
+
+
+mrc p15, 4, r1, c15, c0, 0 /* 从CP15的C0寄存器内的值到R1寄存器中
+								* 参考文档ARM Cortex-A(armV7)编程手册V4.0.pdf P49
+								* Cortex-A7 Technical ReferenceManua.pdf P68 P138
+# config the IRQ
+1. save register 
+We save the register, so we can use it in IRQ
+
+```
+Why not save other registers
+According to ARM's standard calling convention (AAPCS, ARM Architecture Procedure Call Standard):
+
+Registers r0-r3, r12: are classified as "caller-saved" or "volatile" registers, which means that if these registers need to retain their original values ​​after a function call, the caller (caller) must save them before the call. value. Since these registers may be modified during the interrupt service routine, they need to be saved and restored.
+
+Register lr (r14): used to save the return address in function or interrupt calls, so it needs to be saved when an interrupt occurs so that it can correctly return to the state before the interrupt after the interrupt processing is completed.
+
+Registers r4-r11: These registers are considered "callee-saved" or "non-volatile". This means that if these registers are modified within a function, the called function (callee) is responsible for saving and restoring their original values. If these registers are not used in the interrupt handler, or the interrupt handler manages the saving and restoration of these registers internally, there is no need to save them at the interrupt entry.
+
+Stack usage (SP, r13): The stack register is used to manage stack operations on function calls and returns, usually automatically handled by the hardware when entering an interrupt.
+```
+
+2. 
+The GICC_IAR controls the interrupt ID 
+
+![alt text](image-57.png)
+
+**GIC**
+The GIC has Distrubuter and CPU interface
+that controls the Interrupt distribute, priority and CPU response and so on.
+
+![alt text](image-56.png)
+Contex A7 178
+
+
+VBAR, GIC_AIAR 
+**Distrubuter**
+Contex A7 p188
+
+Through **C15**, we can get GIC base address.
+So The CBAR register controls the GIC base address
+Cotex A7 p68
+So we neet to 
+
+# After interrupt
+We need to set Interrupt ID to EOIR
+
+
 
 # Next is the FIQ and IRQ.  
 FIQ is reserved for interrupt that requires a guaranteed fast response time.  
